@@ -49,7 +49,10 @@ Search word from FM-index
 
 ::
 
- >>> fm.search('Milky')
+ >>> for doc in fm.search('Milky'):
+ >>>     print 'doc_id:', doc.doc_id
+ >>>     print 'count:', doc.count
+ >>>     print 'text:', doc.text
 
 - search(query)
 
@@ -92,3 +95,4 @@ License
 
 - Wrapper code is licensed under the New BSD License.
 - Bundled `shellinford`_ C++ library (c) 2012 echizen_tm is licensed under the New BSD License.
+
