@@ -2,7 +2,6 @@
 from setuptools import setup, Extension, find_packages
 import glob
 
-shellinford_cc = glob.glob('shellinford/src/*.cc')
 shellinford_headers = glob.glob('shellinford/src/*.h')
 setup (
         name = 'shellinford',
@@ -12,11 +11,12 @@ setup (
         url='https://github.com/ikegami-yukino/shellinford-python',
         description = """Wavelet Matrix/Tree succinct data structure for text search (using shellinford C++ library)""",
         long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
+        keywords = ['full text search', 'FM-index', 'Wavelet Matrix'],
 
         py_modules = ["shellinford"],
         ext_modules = [
             Extension('_shellinford',
-            sources=['shellinford_wrap.cxx'] + shellinford_cc,
+            sources=['shellinford_wrap.cxx'] + shellinford_headers,
             include_dirs=['shellinford/src'],
             depends=shellinford_headers,
             language = "c++"

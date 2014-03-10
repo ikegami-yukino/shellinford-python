@@ -58,6 +58,7 @@ Search word from FM-index
 
   - NOTE: The search function is available after FM-index is built or loaded
 
+
 Add a document
 ---------------------------------
 
@@ -92,7 +93,6 @@ Write FM-index binary to a file
 
 License
 =========
-
 - Wrapper code is licensed under the New BSD License.
 - Bundled `shellinford`_ C++ library (c) 2012 echizen_tm is licensed under the New BSD License.
 
