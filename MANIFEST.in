@@ -1,0 +1,3 @@
+include *.rst
+include shellinford/*
+include LICENSE

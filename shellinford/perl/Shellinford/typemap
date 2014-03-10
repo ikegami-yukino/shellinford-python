@@ -1,0 +1,3 @@
+TYPEMAP
+fm_index * O_OBJECT
+

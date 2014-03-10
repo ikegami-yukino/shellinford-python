@@ -1,0 +1,11 @@
+Changes
+Makefile.PL
+MANIFEST
+perlobject.map
+ppport.h
+README
+search_fm_index.pl
+Shellinford.xs
+typemap
+t/Shellinford.t
+lib/Shellinford.pm

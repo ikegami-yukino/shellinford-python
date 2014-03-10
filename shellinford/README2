@@ -1,0 +1,40 @@
+########################################################
+  shellinford: succinct document retrieval library
+  author     : echizen_tm
+  last-update: Aug.18, 2012
+########################################################
+
+About Improve Rank Operation of The Wavelet Matrix
+
+
+sigma: number of characters
+N    : document length
+
+Rank operation of the wavelet matrix call rank of bit vector
+2 * log(sigma) times. If sigma * log(N) extra memory available,
+you need only log(sigma) bv's rank. 
+
+(1) Position p & i update independently.
+(2) If initial p = 0, last p takes only sigma/2 positions.
+
+example)
+sequence: 4 7 6 5 3 2 1 0 1 4 1 7
+bv0     : 1 1 1 1 0 0 0 0 0 1 0 1
+
+sequence: 3 2 1 0 1 1 || 4 7 6 5 4 7
+bv1     : 1 1 0 0 0 0 || 0 1 1 0 0 1
+
+sequence: 1 0 1 1 4 5 4 || 3 2 7 6 7
+bv2     : 1 0 1 1 0 1 0 || 1 0 1 0 1
+
+
+if rank_0(i) or rank_1(i), last p is 0.
+if rank_4(i) or rank_5(i), last p is 4.
+if rank_2(i) or rank_3(i), last p is 7.
+if rank_6(i) or rank_7(i), last p is 9.
+
+Then precompute bv2's rank_0 and rank_1,
+you need to update i only.
+
+See src/shellinford_wavelet_matrix.h also.
+

@@ -1,0 +1,48 @@
+########################################################
+  shellinford: succinct document retrieval library
+  author     : echizen_tm
+  last-update: Mar.9, 2012
+########################################################
+
+===============================
+Copyright (c) 2012 Toshiyuki Maezawa
+
+This software is freeware.
+You can use this software for any purposes,
+but the author is NOT responsible for any problems about using it.
+===============================
+このソフトウェアはフリーウェアです。
+ご自由に利用していただいて構いませんが
+本ソフトを使用したことによるいかなる問題についても作者は責任を負いかねます。
+===============================
+
+
+- how to install
+$$ ./configure
+$$ make
+$$ make check
+$$ sudo make install
+
+- how to uninstall
+$$ sudo make uninstall
+$$ make clean
+
+- use sample
+$$ sample/make_fm_index var/test.txt.fm < var/test.txt
+$$ sample/search_fm_index var/test.txt.fm
+Holmes
+2 hits.
+[0]: Milky Holmes(1)
+[2]: Sherlock Holmes(1)
+
+- how to use perl wrapper
+$$ cd perl/Shellinford
+$$ perl Makefile.PL
+$$ make
+$$ make test
+$$ perl search_fm_index.pl ../../var/test.txt.fm
+Holmes
+2 hits.
+[0]: Milky Holmes(1)
+[2]: Sherlock Holmes(1)
+
