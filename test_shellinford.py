@@ -24,12 +24,17 @@ class Test_FMIndex(object):
 
     def test_search(self):
         self.fm = shellinford.FMIndex()
-        docs_list = ('a', 'b', 'c')
+        docs_list = ('ab', 'bc', 'cd')
         self.fm.build(docs_list)
 
-        found_doc = self.fm.search('a').next()
-        expected_result = shellinford.SEARCH_RESULT_FMINDEX(0, 1, 'a')
+        found_doc = next(self.fm.search('a'))
+        expected_result = shellinford.SEARCH_RESULT_FMINDEX(0, 1, 'ab')
         assert_equal(found_doc, expected_result)
+
+        found_doc = next(self.fm.search(['a', 'b']))
+        expected_result = shellinford.SEARCH_RESULT_FMINDEX(0, 1, 'ab')
+        assert_equal(found_doc, expected_result)
+
 
     def test_push_back(self):
         self.fm = shellinford.FMIndex()

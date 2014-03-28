@@ -37,7 +37,7 @@ Build FM-index
 
 ::
 
- >>> fm.build(['Milky Holmes', 'Sherlock "Sheryl" Shellingford'], 'milky.fm')
+ >>> fm.build(['Milky Holmes', 'Sherlock "Sheryl" Shellingford', 'Milky'], 'milky.fm')
 
 - build([docs, filename])
 
@@ -53,9 +53,24 @@ Search word from FM-index
  >>>     print 'doc_id:', doc.doc_id
  >>>     print 'count:', doc.count
  >>>     print 'text:', doc.text
+ doc_id:    0
+ count: 1
+ text:  Milky Holmes
+ doc_id:    2
+ count: 1
+ text:  Milky
+
+ >>> for doc in fm.search(['Milky', 'Holmes']):
+ >>>     print 'doc_id:', doc.doc_id
+ >>>     print 'count:', doc.count
+ >>>     print 'text:', doc.text
+ doc_id:    1
+ count: 1
+ text:  Milky Holmes
 
 - search(query)
 
+  - Giving Sequence data (list, tuple, etc.) enables to "AND" search
   - NOTE: The search function is available after FM-index is built or loaded
 
 

@@ -223,7 +223,7 @@ SMALL_BLOCK_SIZE = cvar.SMALL_BLOCK_SIZE
 LARGE_BLOCK_SIZE = cvar.LARGE_BLOCK_SIZE
 BLOCK_RATE = cvar.BLOCK_RATE
 
-from collections import namedtuple
+from collections import namedtuple, Sequence
 SEARCH_RESULT_FMINDEX = namedtuple('FM_index', 'doc_id count text')
 
 class FMIndex(object):
@@ -253,12 +253,18 @@ class FMIndex(object):
     def search(self, query):
         """Search word from FM-index
         Params:
-            <str> query
+            <str> | <list> | <tuple> query
         """
         dids = MapIntInt({})
-        self.fm.search(query, dids)
-        for k, v in dids.items():
-            yield SEARCH_RESULT_FMINDEX(int(k), int(v), self.fm.get_document(k))
+        if isinstance(query, str):
+            self.fm.search(query, dids)
+            for k, v in dids.items():
+                yield SEARCH_RESULT_FMINDEX(int(k), int(v), self.fm.get_document(k))
+        elif isinstance(query, Sequence):
+            self.fm.search(query[0], dids)
+            for k, v in dids.items():
+                if all(word in self.fm.get_document(k) for word in query[1:]):
+                    yield SEARCH_RESULT_FMINDEX(int(k), int(v), self.fm.get_document(k))
 
     def push_back(self, doc):
         """Build FM-index
