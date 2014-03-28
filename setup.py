@@ -8,11 +8,11 @@ shellinford_headers = glob.glob('shellinford/src/*.h')
 
 setup (
     name = 'shellinford',
-    version = '0.1',
+    version = '0.2',
     author = "Yukino Ikegami",
     author_email='yukinoik@icloud.com',
     url='https://github.com/ikegami-yukino/shellinford-python',
-    description = """Wavelet Matrix/Tree succinct data structure for text search (using shellinford C++ library)""",
+    description = """Wavelet Matrix/Tree succinct data structure for full text search (using shellinford C++ library)""",
     long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
     keywords = ['full text search', 'FM-index', 'Wavelet Matrix'],
 
@@ -38,8 +38,11 @@ setup (
         'Programming Language :: C++',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Text Processing :: Linguistic',
+        'Topic :: Text Processing :: Indexing'
         ],
 )
