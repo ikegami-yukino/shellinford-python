@@ -3,6 +3,7 @@ from nose.tools import assert_equal, assert_true
 import shellinford
 import tempfile
 import os
+from sys import version_info
 
 
 class Test_FMIndex(object):
@@ -18,7 +19,10 @@ class Test_FMIndex(object):
         self.fm.build(docs_dict)
         assert_equal(self.fm.docsize(), 6)
 
-        docs_generator = (str(i) for i in xrange(3))
+        if version_info >= (3,0,0):
+            docs_generator = (str(i) for i in range(3))
+        else:
+            docs_generator = (str(i) for i in xrange(3))
         self.fm.build(docs_generator)
         assert_equal(self.fm.docsize(), 9)
 
@@ -77,7 +81,7 @@ class Test_FMIndex(object):
 
         self.fm.read(filename)
         assert_equal(self.fm.docsize(), 2)
-        found_doc = self.fm.search('a').next()
+        found_doc = next(self.fm.search('a'))
         expected_result = shellinford.SEARCH_RESULT_FMINDEX(0, 1, 'a')
         assert_equal(found_doc, expected_result)
         os.remove(filename)
