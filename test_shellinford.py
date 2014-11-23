@@ -14,18 +14,18 @@ class Test_FMIndex(object):
 
         docs_list = ('a', 'b', 'c')
         self.fm.build(docs_list)
-        assert_equal(self.fm.docsize(), 3)
+        assert_equal(self.fm.docsize, 3)
 
         docs_dict = {'a': '1', 'b': '0', 'c': '2'}
         self.fm.build(docs_dict)
-        assert_equal(self.fm.docsize(), 6)
+        assert_equal(self.fm.docsize, 6)
 
         if version_info >= (3, 0, 0):
             docs_generator = (str(i) for i in range(3))
         else:
             docs_generator = (str(i) for i in xrange(3))
         self.fm.build(docs_generator)
-        assert_equal(self.fm.docsize(), 9)
+        assert_equal(self.fm.docsize, 9)
 
     def test_search(self):
         self.fm = shellinford.FMIndex()
@@ -52,26 +52,26 @@ class Test_FMIndex(object):
         self.fm = shellinford.FMIndex()
         self.fm.push_back('a')
         self.fm.build()
-        assert_equal(self.fm.docsize(), 1)
+        assert_equal(self.fm.docsize, 1)
 
     def test_size(self):
         self.fm = shellinford.FMIndex()
-        assert_equal(self.fm.size(), 0)
+        assert_equal(self.fm.size, 0)
         self.fm.build(['a', 'b'])
-        assert_equal(self.fm.size(), 3)
+        assert_equal(self.fm.size, 3)
 
     def test_docsize(self):
         self.fm = shellinford.FMIndex()
-        assert_equal(self.fm.docsize(), 0)
+        assert_equal(self.fm.docsize, 0)
         self.fm.build(['a', 'b'])
-        assert_equal(self.fm.docsize(), 2)
+        assert_equal(self.fm.docsize, 2)
 
     def test_clear(self):
         self.fm = shellinford.FMIndex()
         self.fm.build(['a', 'b'])
         self.fm.clear()
-        assert_equal(self.fm.size(), 0)
-        assert_equal(self.fm.docsize(), 0)
+        assert_equal(self.fm.size, 0)
+        assert_equal(self.fm.docsize, 0)
 
     def test_write(self):
         self.fm = shellinford.FMIndex()
@@ -91,7 +91,7 @@ class Test_FMIndex(object):
             self.fm.clear()
 
             self.fm.read(filename)
-            assert_equal(self.fm.docsize(), 2)
+            assert_equal(self.fm.docsize, 2)
             found_doc = next(self.fm.search('a'))
             expected_result = SEARCH_RESULT(0, [1], 'a')
             assert_equal(found_doc, expected_result)

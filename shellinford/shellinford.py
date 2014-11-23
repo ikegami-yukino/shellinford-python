@@ -303,12 +303,14 @@ class FMIndex(object):
         """
         self.fm.push_back(doc)
 
+    @property
     def size(self):
         return self.fm.size()
 
     def __len__(self):
         return self.fm.size()
 
+    @property
     def docsize(self):
         return self.fm.docsize()
 
