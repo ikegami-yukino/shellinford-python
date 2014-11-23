@@ -27,7 +27,7 @@ Usage
 =====
 
 Create a new FM-index instance
------------------------------
+-------------------------------
 
 ::
 
@@ -76,9 +76,10 @@ Search word from FM-index
  count: 1
  text:  Milky Holmes
 
-- search(query)
+- search(query, [_or=False, ignores=[]])
 
-  - Giving Sequence data (list, tuple, etc.) enables to "AND" search
+  - If `_or` = True, then "OR" search is executed, else "AND" search
+  - Given `ignores`, "NOT" search is also executed
   - NOTE: The search function is available after FM-index is built or loaded
 
 

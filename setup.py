@@ -13,12 +13,12 @@ with open(os.path.join('shellinford', '__init__.py'), 'r') as f:
 
 setup (
     name = 'shellinford',
-    version = '0.3',
+    version = version,
     author = "Yukino Ikegami",
     author_email='yukinoik@icloud.com',
     url='https://github.com/ikegami-yukino/shellinford-python',
     description = """Wavelet Matrix/Tree succinct data structure for full text search (using shellinford C++ library)""",
-    long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
+    long_description = open('README.rst').read() + "\n" + open('CHANGES.rst').read(),
     keywords = ['full text search', 'FM-index', 'Wavelet Matrix'],
 
     ext_modules = [
