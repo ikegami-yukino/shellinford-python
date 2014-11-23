@@ -350,9 +350,11 @@ class bwt(_object):
     def build(self, *args):
         return _shellinford.bwt_build(self, *args)
 
+    @property
     def size(self):
         return _shellinford.bwt_size(self)
 
+    @property
     def head(self):
         return _shellinford.bwt_head(self)
 
