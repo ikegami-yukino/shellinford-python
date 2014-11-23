@@ -1,0 +1,9 @@
+[report]
+exclude_lines =
+  if fp is not None
+  import _shellinford
+  except NameError
+  def _swig_setattr_nondynamic
+  def _swig_getattr
+  def _swig_repr
+  class MapIntInt

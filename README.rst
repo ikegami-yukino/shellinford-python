@@ -5,6 +5,9 @@ shellinford
     :target: http://badge.fury.io/py/shellinford
 .. image:: https://travis-ci.org/ikegami-yukino/shellinford-python.svg?branch=master
     :target: https://travis-ci.org/ikegami-yukino/shellinford-python
+.. image:: https://coveralls.io/repos/ikegami-yukino/shellinford-python/badge.png
+    :target: https://coveralls.io/r/ikegami-yukino/shellinford-python
+
 
 Shellinford is an implementation of a Wavelet Matrix/Tree succinct data structure for document retrieval.
 
