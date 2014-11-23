@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup, Extension, find_packages
+import os
+import re
+from setuptools import setup, Extension
 import glob
 
 
-shellinford_cc = glob.glob('shellinford/src/*.cc')
-shellinford_headers = glob.glob('shellinford/src/*.h')
+shellinford_cc = glob.glob('shellinford_cpp/src/*.cc')
+shellinford_headers = glob.glob('shellinford_cpp/src/*.h')
+with open(os.path.join('shellinford', '__init__.py'), 'r') as f:
+    version = re.compile(
+            r".*__version__ = '(.*?)'", re.S).match(f.read()).group(1)
 
 setup (
     name = 'shellinford',
-    version = '0.2',
+    version = '0.3',
     author = "Yukino Ikegami",
     author_email='yukinoik@icloud.com',
     url='https://github.com/ikegami-yukino/shellinford-python',
@@ -16,19 +21,18 @@ setup (
     long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
     keywords = ['full text search', 'FM-index', 'Wavelet Matrix'],
 
-    py_modules = ["shellinford"],
     ext_modules = [
         Extension(
             '_shellinford',
             sources=['shellinford_wrap.cxx'] + shellinford_cc,
-            include_dirs=['shellinford/src'],
+            include_dirs=['shellinford_cpp/src'],
             depends=shellinford_headers,
             language = "c++"
         ),
     ],
 
     headers=shellinford_headers,
-    packages=find_packages(exclude=['test']),
+    packages=["shellinford"],
 
     classifiers=[
         'Development Status :: 3 - Alpha',

@@ -26,10 +26,14 @@ if version_info >= (2,6,0):
                 fp.close()
             return _mod
     _shellinford = swig_import_helper()
+    if version_info >= (3, 0):
+        items = 'items'
+    else:
+        items = 'iteritems'    
     del swig_import_helper
+    del version_info
 else:
     import _shellinford
-del version_info
 try:
     _swig_property = property
 except NameError:
@@ -225,7 +229,7 @@ BLOCK_RATE = cvar.BLOCK_RATE
 
 
 from collections import namedtuple, Sequence
-SEARCH_RESULT_FMINDEX = namedtuple('FM_index', 'doc_id count text')
+SEARCH_RESULT = namedtuple('FM_index', 'doc_id count text')
 
 class FMIndex(object):
 
@@ -241,8 +245,9 @@ class FMIndex(object):
             <str> filename
         """
         if docs:
-            if hasattr(docs, 'items'):
-                for (idx, doc) in sorted(docs.items(), key=lambda x:x[0]):
+            if hasattr(docs, items):
+                for (idx, doc) in sorted(getattr(docs, items)(),
+                                         key=lambda x: x[0]):
                     self.fm.push_back(doc)
             else:
                 for doc in docs:
@@ -259,16 +264,20 @@ class FMIndex(object):
         dids = MapIntInt({})
         if isinstance(query, str):
             self.fm.search(query, dids)
-            for k, v in dids.items():
-                yield SEARCH_RESULT_FMINDEX(int(k), int(v), self.fm.get_document(k))
+            for (k, v) in getattr(dids, items)():
+                doc = self.fm.get_document(k)
+                yield SEARCH_RESULT(int(k), int(v), doc)
         elif isinstance(query, Sequence):
             self.fm.search(query[0], dids)
-            for k, v in dids.items():
-                if all(word in self.fm.get_document(k) for word in query[1:]):
-                    yield SEARCH_RESULT_FMINDEX(int(k), int(v), self.fm.get_document(k))
+            for (k, v) in getattr(dids, items)():
+                doc = self.fm.get_document(k)
+                if all(word in doc for word in query[1:]):
+                    yield SEARCH_RESULT(int(k), int(v), doc)
+        else:
+            raise TypeError
 
     def push_back(self, doc):
-        """Build FM-index
+        """Add document to FM-index
         Params:
             <str> doc
         """
