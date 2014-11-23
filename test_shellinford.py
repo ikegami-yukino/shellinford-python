@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from nose.tools import assert_equal, assert_true
 import shellinford
+from shellinford.shellinford import SEARCH_RESULT
 import tempfile
 import os
 from sys import version_info
@@ -19,7 +20,7 @@ class Test_FMIndex(object):
         self.fm.build(docs_dict)
         assert_equal(self.fm.docsize(), 6)
 
-        if version_info >= (3,0,0):
+        if version_info >= (3, 0, 0):
             docs_generator = (str(i) for i in range(3))
         else:
             docs_generator = (str(i) for i in xrange(3))
@@ -31,14 +32,21 @@ class Test_FMIndex(object):
         docs_list = ('ab', 'bc', 'cd')
         self.fm.build(docs_list)
 
-        found_doc = next(self.fm.search('a'))
-        expected_result = shellinford.SEARCH_RESULT_FMINDEX(0, 1, 'ab')
-        assert_equal(found_doc, expected_result)
-
-        found_doc = next(self.fm.search(['a', 'b']))
-        expected_result = shellinford.SEARCH_RESULT_FMINDEX(0, 1, 'ab')
-        assert_equal(found_doc, expected_result)
-
+        params = [dict(query='a'),
+                  dict(query=['a', 'b'], _or=False),
+                  dict(query='a', _or=False, ignores=['c']),
+                  dict(query=['a', 'd'], _or=True),
+                  dict(query=['a', 'd'], _or=True, ignores=['c'])]
+        desireds = [[SEARCH_RESULT(0, [1], 'ab')],
+                    [SEARCH_RESULT(0, [1, 1], 'ab')],
+                    [SEARCH_RESULT(0, [1], 'ab')],
+                    [SEARCH_RESULT(0, [1, 0], 'ab'),
+                     SEARCH_RESULT(2, [0, 1], 'cd')],
+                    [SEARCH_RESULT(0, [1, 0], 'ab')]
+                   ]
+        for (param, desired) in zip(params, desireds):
+            actual = self.fm.search(**param)
+            assert_equal(list(actual), desired)
 
     def test_push_back(self):
         self.fm = shellinford.FMIndex()
@@ -67,24 +75,28 @@ class Test_FMIndex(object):
 
     def test_write(self):
         self.fm = shellinford.FMIndex()
-        filename = tempfile.mkstemp()[1]
-        self.fm.build(['a', 'b'])
-        self.fm.write(filename)
-        assert_true(len(open(filename, 'r').read()) > 0)
-        os.remove(filename)
+        try:
+            filename = tempfile.mkstemp()[1]
+            self.fm.build(['a', 'b'])
+            self.fm.write(filename)
+            assert_true(len(open(filename, 'r').read()) > 0)
+        finally:
+            os.remove(filename)
 
     def test_read(self):
         self.fm = shellinford.FMIndex()
-        filename = tempfile.mkstemp()[1]
-        self.fm.build(['a', 'b'], filename)
-        self.fm.clear()
+        try:
+            filename = tempfile.mkstemp()[1]
+            self.fm.build(['a', 'b'], filename)
+            self.fm.clear()
 
-        self.fm.read(filename)
-        assert_equal(self.fm.docsize(), 2)
-        found_doc = next(self.fm.search('a'))
-        expected_result = shellinford.SEARCH_RESULT_FMINDEX(0, 1, 'a')
-        assert_equal(found_doc, expected_result)
-        os.remove(filename)
+            self.fm.read(filename)
+            assert_equal(self.fm.docsize(), 2)
+            found_doc = next(self.fm.search('a'))
+            expected_result = SEARCH_RESULT(0, [1], 'a')
+            assert_equal(found_doc, expected_result)
+        finally:
+            os.remove(filename)
 
 
 class test_bit_vector(object):

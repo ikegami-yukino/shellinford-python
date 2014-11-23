@@ -228,7 +228,9 @@ LARGE_BLOCK_SIZE = cvar.LARGE_BLOCK_SIZE
 BLOCK_RATE = cvar.BLOCK_RATE
 
 
-from collections import namedtuple, Sequence
+from collections import namedtuple
+from operator import or_, and_
+from functools import reduce
 SEARCH_RESULT = namedtuple('FM_index', 'doc_id count text')
 
 class FMIndex(object):
@@ -256,25 +258,43 @@ class FMIndex(object):
         if filename:
             self.fm.write(filename)
 
-    def search(self, query):
+    def _merge_search_result(self, search_results, _or=False, ignores=[]):
+        """Merge of filter search results
+        Params:
+            <str> | <Sequential> query
+            <bool> _or
+            <list <str> > ignores
+        Return:
+            <generator> computed_dids
+        """
+        all_docids = map(lambda x: set(x.keys()), search_results)
+        oprtr = or_ if _or else and_
+        return reduce(oprtr, all_docids)
+
+    def search(self, query, _or=False, ignores=[]):
         """Search word from FM-index
         Params:
-            <str> | <list> | <tuple> query
+            <str> | <Sequential> query
+            <bool> _or
+            <list <str> > ignores
+        Return:
+            SEARCH_RESULT(<int> document_id,
+                          <list <int> > counts
+                          <str> doc)
         """
-        dids = MapIntInt({})
-        if isinstance(query, str):
+        queries = [query] if isinstance(query, str) else query
+        search_results = []
+        for query in queries:
+            dids = MapIntInt({})
             self.fm.search(query, dids)
-            for (k, v) in getattr(dids, items)():
-                doc = self.fm.get_document(k)
-                yield SEARCH_RESULT(int(k), int(v), doc)
-        elif isinstance(query, Sequence):
-            self.fm.search(query[0], dids)
-            for (k, v) in getattr(dids, items)():
-                doc = self.fm.get_document(k)
-                if all(word in doc for word in query[1:]):
-                    yield SEARCH_RESULT(int(k), int(v), doc)
-        else:
-            raise TypeError
+            search_results.append(dids.asdict())
+        merged_dids = self._merge_search_result(search_results, _or, ignores)
+        for did in merged_dids:
+            doc = self.fm.get_document(did)
+            if not any(ignore in doc for ignore in ignores):
+                counts = map(lambda x: x.get(did, 0), search_results)
+                counts = map(int, counts)
+                yield SEARCH_RESULT(int(did), list(counts), doc)
 
     def push_back(self, doc):
         """Add document to FM-index
@@ -302,5 +322,3 @@ class FMIndex(object):
         self.fm.write(filename)
 
 # This file is compatible with both classic and new-style classes.
-
-
