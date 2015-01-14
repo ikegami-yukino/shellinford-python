@@ -480,8 +480,7 @@ class FMIndex(object):
         for did in merged_dids:
             doc = self.fm.get_document(did)
             if not any(ignore in doc for ignore in ignores):
-                counts = map(lambda x: x.get(did, 0), search_results)
-                counts = map(int, counts)
+                counts = map(lambda x: int(x.get(did, 0)), search_results)
                 yield SEARCH_RESULT(int(did), list(counts), doc)
 
     def push_back(self, doc):
