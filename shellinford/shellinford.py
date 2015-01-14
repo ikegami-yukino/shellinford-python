@@ -446,12 +446,11 @@ class FMIndex(object):
         if filename:
             self.fm.write(filename)
 
-    def _merge_search_result(self, search_results, _or=False, ignores=[]):
+    def _merge_search_result(self, search_results, _or=False):
         """Merge of filter search results
         Params:
             <str> | <Sequential> query
             <bool> _or
-            <list <str> > ignores
         Return:
             <generator> computed_dids
         """
@@ -476,7 +475,7 @@ class FMIndex(object):
             dids = MapIntInt({})
             self.fm.search(query, dids)
             search_results.append(dids.asdict())
-        merged_dids = self._merge_search_result(search_results, _or, ignores)
+        merged_dids = self._merge_search_result(search_results, _or)
         for did in merged_dids:
             doc = self.fm.get_document(did)
             if not any(ignore in doc for ignore in ignores):
