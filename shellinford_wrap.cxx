@@ -5044,11 +5044,11 @@ SWIGINTERN PyObject *std_map_Sl_unsigned_SS_long_SS_long_Sc_unsigned_SS_long_SS_
 SWIGINTERN void std_map_Sl_unsigned_SS_long_SS_long_Sc_unsigned_SS_long_SS_long_Sg__erase__SWIG_1(std::map< unsigned long long,unsigned long long > *self,std::map< unsigned long long,unsigned long long >::iterator position){ self->erase(position); }
 SWIGINTERN void std_map_Sl_unsigned_SS_long_SS_long_Sc_unsigned_SS_long_SS_long_Sg__erase__SWIG_2(std::map< unsigned long long,unsigned long long > *self,std::map< unsigned long long,unsigned long long >::iterator first,std::map< unsigned long long,unsigned long long >::iterator last){ self->erase(first, last); }
 
-  #include "shellinford_cpp/src/shellinford_fm_index.h"
-  #include "shellinford_cpp/src/shellinford_bit_vector.h"
-  #include "shellinford_cpp/src/shellinford_succinct_vector.h"
-  #include "shellinford_cpp/src/shellinford_wavelet_matrix.h"
-  #include "shellinford_cpp/src/shellinford_wavelet_tree.h"
+  #include "cpp_src/shellinford_fm_index.h"
+  #include "cpp_src/shellinford_bit_vector.h"
+  #include "cpp_src/shellinford_succinct_vector.h"
+  #include "cpp_src/shellinford_wavelet_matrix.h"
+  #include "cpp_src/shellinford_wavelet_tree.h"
 
 
 SWIGINTERN int

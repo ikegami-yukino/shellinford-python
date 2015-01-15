@@ -5,8 +5,8 @@ from setuptools import setup, Extension
 import glob
 
 
-shellinford_cc = glob.glob('shellinford_cpp/src/*.cc')
-shellinford_headers = glob.glob('shellinford_cpp/src/*.h')
+shellinford_cc = glob.glob('cpp_src/*.cc')
+shellinford_headers = glob.glob('cpp_src/*.h')
 with open(os.path.join('shellinford', '__init__.py'), 'r') as f:
     version = re.compile(
             r".*__version__ = '(.*?)'", re.S).match(f.read()).group(1)
@@ -25,7 +25,7 @@ setup (
         Extension(
             '_shellinford',
             sources=['shellinford_wrap.cxx'] + shellinford_cc,
-            include_dirs=['shellinford_cpp/src'],
+            include_dirs=['cpp_src'],
             depends=shellinford_headers,
             language = "c++"
         ),
