@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from codecs import open
 import os
 import re
 from setuptools import setup, Extension
@@ -7,27 +8,28 @@ import glob
 
 shellinford_cc = glob.glob('cpp_src/*.cc')
 shellinford_headers = glob.glob('cpp_src/*.h')
-with open(os.path.join('shellinford', '__init__.py'), 'r') as f:
+with open(os.path.join('shellinford', '__init__.py'), 'r', encoding='utf8') as f:
     version = re.compile(
-            r".*__version__ = '(.*?)'", re.S).match(f.read()).group(1)
+        r".*__version__ = '(.*?)'", re.S).match(f.read()).group(1)
 
-setup (
-    name = 'shellinford',
-    version = version,
-    author = "Yukino Ikegami",
+setup(
+    name='shellinford',
+    version=version,
+    author="Yukino Ikegami",
     author_email='yukinoik@icloud.com',
     url='https://github.com/ikegami-yukino/shellinford-python',
-    description = """Wavelet Matrix/Tree succinct data structure for full text search (using shellinford C++ library)""",
-    long_description = open('README.rst').read() + "\n" + open('CHANGES.rst').read(),
-    keywords = ['full text search', 'FM-index', 'Wavelet Matrix'],
+    description="""Wavelet Matrix/Tree succinct data structure for full text search (using shellinford C++ library)""",
+    long_description='%s\n\n%s' % (open('README.rst', encoding='utf8').read(),
+                                   open('CHANGES.rst', encoding='utf8').read()),
+    keywords=['full text search', 'FM-index', 'Wavelet Matrix'],
 
-    ext_modules = [
+    ext_modules=[
         Extension(
             '_shellinford',
             sources=['shellinford_wrap.cxx'] + shellinford_cc,
             include_dirs=['cpp_src'],
             depends=shellinford_headers,
-            language = "c++"
+            language="c++"
         ),
     ],
 
@@ -48,5 +50,5 @@ setup (
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Text Processing :: Linguistic',
         'Topic :: Text Processing :: Indexing'
-        ],
+    ],
 )
