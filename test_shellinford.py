@@ -92,9 +92,9 @@ class Test_FMIndex(object):
 
             fm.read(filename)
             assert_equal(fm.docsize, 2)
-            found_doc = next(fm.search('a'))
+            found_doc = fm.search('a')
             expected_result = SEARCH_RESULT(0, [1], 'a')
-            assert_equal(found_doc, expected_result)
+            assert_equal(found_doc[0], expected_result)
         finally:
             os.remove(filename)
 
@@ -107,9 +107,9 @@ class Test_FMIndex(object):
             del fm
             fm = shellinford.FMIndex(filename=filename)
             assert_equal(fm.docsize, 2)
-            found_doc = next(fm.search('a'))
+            found_doc = fm.search('a')
             expected_result = SEARCH_RESULT(0, [1], 'a')
-            assert_equal(found_doc, expected_result)
+            assert_equal(found_doc[0], expected_result)
         finally:
             os.remove(filename)
 
