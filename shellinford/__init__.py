@@ -1,7 +1,7 @@
 from . import shellinford
 
-VERSION = (0, 3, 4)
-__version__ = '0.3.4'
+VERSION = (0, 3, 5)
+__version__ = '0.3.5'
 __all__ = ['FMIndex', 'bit_vector', 'bwt']
 
 FMIndex = shellinford.FMIndex

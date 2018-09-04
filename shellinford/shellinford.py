@@ -440,7 +440,7 @@ class FMIndex(object):
                                          key=lambda x: x[0]):
                     self.fm.push_back(doc)
             else:
-                for doc in docs:
+                for doc in filter(bool, docs):
                     self.fm.push_back(doc)
         self.fm.build()
         if filename:
@@ -489,7 +489,17 @@ class FMIndex(object):
         Params:
             <str> doc
         """
-        self.fm.push_back(doc)
+        if doc:
+            self.fm.push_back(doc)
+
+    def __contains__(self, query):
+        """Whether string is in FM-index
+        Params:
+            <str> query
+        Return:
+            <bool>
+        """
+        return bool(self.search(query))
 
     @property
     def size(self):
