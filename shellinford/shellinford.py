@@ -492,6 +492,15 @@ class FMIndex(object):
         if doc:
             self.fm.push_back(doc)
 
+    def __contains__(self, query):
+        """Whether string is in FM-index
+        Params:
+            <str> query
+        Return:
+            <bool>
+        """
+        return bool(self.search(query))
+
     @property
     def size(self):
         return self.fm.size()

@@ -113,6 +113,12 @@ class Test_FMIndex(object):
         finally:
             os.remove(filename)
 
+    def test__in__(self):
+        fm = shellinford.FMIndex()
+        fm.build(['a', 'b'])
+        assert_true('a' in fm)
+        assert_true('c' not in fm)
+
 
 class test_bit_vector(object):
 
