@@ -6,6 +6,7 @@ CHANGES
 
 - `FMIndex.build()` and `FMIndex.pushback()` ignore empty string
 - `FMIndex` supports "in" operator. (e.g., 'a' in fm)
+- Support Python 3.5, 3.6 and 3.7
 
 0.3.4 (2016-10-28)
 ------------------
