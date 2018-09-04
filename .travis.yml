@@ -4,6 +4,8 @@ python:
   - "2.7"
   - "3.3"
   - "3.4"
+  - "3.5"
+  - "3.6"
 compiler:
   - clang
 install:
@@ -13,9 +15,3 @@ script:
   - "nosetests --with-coverage --cover-package=shellinford"
 after_success:
   - coveralls
-notifications:
-  email:
-    recipients:
-      - yukino0131@me.com
-    on_success: always
-    on_failure: always

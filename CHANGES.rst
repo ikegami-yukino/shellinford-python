@@ -1,10 +1,16 @@
 CHANGES
 =======
 
+0.3.5 (2018-09-05)
+------------------
+
+- `FMIndex.build()` and `FMIndex.pushback()` ignore empty string
+- `FMIndex` supports "in" operator. (e.g., 'a' in fm)
+
 0.3.4 (2016-10-28)
 ------------------
 
-- FMIndex.search() returns list
+- `FMIndex.search()` returns list
 
 0.3 (2014-11-24)
 ----------------

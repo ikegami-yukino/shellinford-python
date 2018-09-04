@@ -115,8 +115,15 @@ Write FM-index binary to a file
 - write(path)
 
 
+Check Whether FM-Index contains string
+---------------------------------------
+
+::
+
+ >>> 'baritsu' in fm
+
+
 License
 =========
 - Wrapper code is licensed under the New BSD License.
 - Bundled `shellinford`_ C++ library (c) 2012 echizen_tm is licensed under the New BSD License.
-
