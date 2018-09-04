@@ -440,7 +440,7 @@ class FMIndex(object):
                                          key=lambda x: x[0]):
                     self.fm.push_back(doc)
             else:
-                for doc in docs:
+                for doc in filter(bool, docs):
                     self.fm.push_back(doc)
         self.fm.build()
         if filename:
@@ -489,7 +489,8 @@ class FMIndex(object):
         Params:
             <str> doc
         """
-        self.fm.push_back(doc)
+        if doc:
+            self.fm.push_back(doc)
 
     @property
     def size(self):
