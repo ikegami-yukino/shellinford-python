@@ -315,6 +315,9 @@ class fm_index(_object):
     def search(self, *args):
         return _shellinford.fm_index_search(self, *args)
 
+    def count(self, key, dids):
+        return _shellinford.fm_index_count(self, key, dids)
+
     def get_document(self, *args):
         return _shellinford.fm_index_get_document(self, *args)
 
@@ -416,7 +419,7 @@ BLOCK_RATE = cvar.BLOCK_RATE
 
 
 from collections import namedtuple
-from operator import or_, and_
+from operator import or_, and_, add
 from functools import reduce
 SEARCH_RESULT = namedtuple('FM_index', 'doc_id count text')
 
@@ -484,6 +487,32 @@ class FMIndex(object):
                 result.append(SEARCH_RESULT(int(did), list(counts), doc))
         return result
 
+    def count(self, query, _or=False, ignores=[]):
+        """Count word from FM-index
+        Params:
+            <str> | <Sequential> query
+            <bool> _or
+            <list <str> > ignores
+        Return:
+            <int> counts
+        """
+        if isinstance(query, str):
+            dids = MapIntInt({})
+            return self.fm.count(query, dids)
+        else:
+            search_results = []
+            for q in query:
+                dids = MapIntInt({})
+                self.fm.search(q, dids)
+                search_results.append(dids.asdict())
+            merged_dids = self._merge_search_result(search_results, _or)
+            counts = 0
+            for did in merged_dids:
+                doc = self.fm.get_document(did)
+                if not any(ignore in doc for ignore in ignores):
+                    counts += reduce(add, (map(lambda x: int(x.pop(did, 0)), search_results)))
+            return counts
+
     def push_back(self, doc):
         """Add document to FM-index
         Params:
@@ -499,7 +528,7 @@ class FMIndex(object):
         Return:
             <bool>
         """
-        return bool(self.search(query))
+        return bool(self.count(query))
 
     @property
     def size(self):
