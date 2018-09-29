@@ -29,7 +29,8 @@ setup(
             sources=['shellinford_wrap.cxx'] + shellinford_cc,
             include_dirs=['cpp_src'],
             depends=shellinford_headers,
-            language="c++"
+            language="c++",
+            extra_compile_args=["-std=c++11"]
         ),
     ],
 
