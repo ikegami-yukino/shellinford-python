@@ -416,7 +416,7 @@ BLOCK_RATE = cvar.BLOCK_RATE
 
 
 from collections import namedtuple
-from operator import or_, and_
+from operator import add
 from functools import reduce
 SEARCH_RESULT = namedtuple('FM_index', 'doc_id count text')
 
@@ -452,11 +452,12 @@ class FMIndex(object):
             <str> | <Sequential> query
             <bool> _or
         Return:
-            <generator> computed_dids
+            <list> computed_dids
         """
-        all_docids = map(lambda x: set(x.keys()), search_results)
-        oprtr = or_ if _or else and_
-        return reduce(oprtr, all_docids)
+        all_docids = reduce(add, [list(x.keys()) for x in search_results])
+        if _or:
+            return sorted(set(all_docids), key=all_docids.index)
+        return [docid for docid in set(all_docids) if all_docids.count(docid) > 1]
 
     def search(self, query, _or=False, ignores=[]):
         """Search word from FM-index
@@ -469,11 +470,22 @@ class FMIndex(object):
                                 <list <int> > counts
                                 <str> doc)
         """
-        queries = [query] if isinstance(query, str) else query
-        search_results = []
-        for query in queries:
+        if isinstance(query, str):
             dids = MapIntInt({})
             self.fm.search(query, dids)
+            dids = dids.asdict()
+            result = []
+            for did in sorted(dids.keys()):
+                doc = self.fm.get_document(did)
+                if not any(ignore in doc for ignore in ignores):
+                    count = dids[did]
+                    result.append(SEARCH_RESULT(int(did), [count], doc))
+            return result
+
+        search_results = []
+        for q in query:
+            dids = MapIntInt({})
+            self.fm.search(q, dids)
             search_results.append(dids.asdict())
         merged_dids = self._merge_search_result(search_results, _or)
         result = []
