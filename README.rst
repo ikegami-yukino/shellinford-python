@@ -83,6 +83,25 @@ Search word from FM-index
   - NOTE: The search function is available after FM-index is built or loaded
 
 
+Count word from FM-index
+---------------------------------
+
+::
+
+ >>> fm.count('Milky'):
+ 1
+
+ >>> fm.count(['Milky', 'Holmes']):
+ 1
+
+- count(query, [_or=False])
+
+  - If `_or` = True, then "OR" search is executed, else "AND" search
+  - NOTE: The count function is available after FM-index is built or loaded
+  - This function is slightly faster than the search function
+
+
+
 Add a document
 ---------------------------------
 

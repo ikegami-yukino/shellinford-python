@@ -149,6 +149,15 @@ namespace shellinford {
       }
     }
   }
+  uint64_t fm_index::count(const string &key,
+                           map<uint64_t, uint64_t> &dids) const {
+    this->search(key, dids);
+    uint64_t total = 0;
+    for (auto i = dids.begin(); i != dids.end(); ++i){
+      total += i->second;
+    }
+    return total;
+  }
   const string &fm_index::get_document(uint64_t did) {
     if (did >= this->docsize()) {
       throw "shellinford::fm_index::get_document()";
