@@ -54,10 +54,9 @@ class Test_FMIndex(object):
 
         params = [dict(query='a'),
                   dict(query=['a', 'b'], _or=False),
-                  dict(query='a', _or=False, ignores=['c']),
-                  dict(query=['a', 'd'], _or=True),
-                  dict(query=['a', 'd'], _or=True, ignores=['c'])]
-        desireds = [1, 2, 1, 2, 1]
+                  dict(query='a', _or=False),
+                  dict(query=['a', 'd'], _or=True)]
+        desireds = [1, 1, 1, 2]
         for (param, desired) in zip(params, desireds):
             actual = fm.count(**param)
             assert_equal(actual, desired)
