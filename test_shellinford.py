@@ -47,6 +47,20 @@ class Test_FMIndex(object):
             actual = fm.search(**param)
             assert_equal(list(actual), desired)
 
+    def test_count(self):
+        fm = shellinford.FMIndex()
+        docs_list = ('ab', 'bc', 'cd')
+        fm.build(docs_list)
+
+        params = [dict(query='a'),
+                  dict(query=['a', 'b'], _or=False),
+                  dict(query='a', _or=False),
+                  dict(query=['a', 'd'], _or=True)]
+        desireds = [1, 1, 1, 2]
+        for (param, desired) in zip(params, desireds):
+            actual = fm.count(**param)
+            assert_equal(actual, desired)
+
     def test_push_back(self):
         fm = shellinford.FMIndex()
         fm.push_back('a')

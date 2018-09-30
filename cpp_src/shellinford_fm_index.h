@@ -34,6 +34,7 @@ namespace shellinford {
     uint64_t get_document_id(uint64_t pos) const;
     void search(const std::string &key,
                 std::map<uint64_t, uint64_t> &dids) const;
+    uint64_t count(const std::string &key,std::map<uint64_t, uint64_t> &dids) const;
     const std::string &get_document(uint64_t did);
     void write(std::ofstream &ofs) const;
     void write(const char *filename) const;
