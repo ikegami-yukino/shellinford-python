@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+0.4.0 (2018-09-30)
+------------------
+
+- `FMIndex.count()` is added
+- No longer support Python 2.6
+- bug fix
+
 0.3.5 (2018-09-05)
 ------------------
 
