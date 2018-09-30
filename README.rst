@@ -11,9 +11,11 @@ shellinford
 
 Shellinford is an implementation of a Wavelet Matrix/Tree succinct data structure for document retrieval.
 
-Based on `shellinford`_ C++ library.
+It is based on `shellinford`_ C++ library.
 
 .. _shellinford: https://code.google.com/p/shellinford/
+
+NOTE: This module requires C++11 compiler
 
 Installation
 ============
@@ -29,7 +31,7 @@ Usage
 Create a new FM-index instance
 -------------------------------
 
-::
+.. code:: python
 
  >>> import shellinford
  >>> fm = shellinford.FMIndex()
@@ -43,7 +45,7 @@ Create a new FM-index instance
 Build FM-index
 -----------------------------
 
-::
+.. code:: python
 
  >>> fm.build(['Milky Holmes', 'Sherlock "Sheryl" Shellingford', 'Milky'], 'milky.fm')
 
@@ -55,26 +57,26 @@ Build FM-index
 Search word from FM-index
 ---------------------------------
 
-::
+.. code:: python
 
  >>> for doc in fm.search('Milky'):
- >>>     print 'doc_id:', doc.doc_id
- >>>     print 'count:', doc.count
- >>>     print 'text:', doc.text
- doc_id:    0
- count: 1
- text:  Milky Holmes
- doc_id:    2
- count: 1
- text:  Milky
+ >>>     print('doc_id:', doc.doc_id)
+ >>>     print('count:', doc.count)
+ >>>     print('text:', doc.text)
+ doc_id: 0
+ count: [1]
+ text: Milky Holmes
+ doc_id: 2
+ count: [1]
+ text: Milky
 
  >>> for doc in fm.search(['Milky', 'Holmes']):
- >>>     print 'doc_id:', doc.doc_id
- >>>     print 'count:', doc.count
- >>>     print 'text:', doc.text
- doc_id:    1
- count: 1
- text:  Milky Holmes
+ >>>     print('doc_id:', doc.doc_id)
+ >>>     print('count:', doc.count)
+ >>>     print('text:', doc.text)
+ doc_id: 1
+ count: [1]
+ text: Milky Holmes
 
 - search(query, [_or=False, ignores=[]])
 
@@ -86,10 +88,10 @@ Search word from FM-index
 Count word from FM-index
 ---------------------------------
 
-::
+.. code:: python
 
  >>> fm.count('Milky'):
- 1
+ 2
 
  >>> fm.count(['Milky', 'Holmes']):
  1
@@ -105,7 +107,7 @@ Count word from FM-index
 Add a document
 ---------------------------------
 
-::
+.. code:: python
 
  >>> fm.push_back('Baritsu')
 
@@ -117,7 +119,7 @@ Add a document
 Read FM-index from a binary file
 ---------------------------------
 
-::
+.. code:: python
 
  >>> fm.read('milky_holmes.fm')
 
@@ -127,7 +129,7 @@ Read FM-index from a binary file
 Write FM-index binary to a file
 ---------------------------------
 
-::
+.. code:: python
 
  >>> fm.write('milky_holmes.fm')
 
@@ -137,7 +139,7 @@ Write FM-index binary to a file
 Check Whether FM-Index contains string
 ---------------------------------------
 
-::
+.. code:: python
 
  >>> 'baritsu' in fm
 
