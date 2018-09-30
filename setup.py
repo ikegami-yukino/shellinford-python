@@ -16,7 +16,7 @@ setup(
     name='shellinford',
     version=version,
     author="Yukino Ikegami",
-    author_email='yukinoik@icloud.com',
+    author_email='yknikgm@gmail.com',
     url='https://github.com/ikegami-yukino/shellinford-python',
     description="""Wavelet Matrix/Tree succinct data structure for full text search (using shellinford C++ library)""",
     long_description='%s\n\n%s' % (open('README.rst', encoding='utf8').read(),
