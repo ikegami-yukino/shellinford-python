@@ -149,6 +149,11 @@ namespace shellinford {
       }
     }
   }
+  bool fm_index::contains(const string &key) const {
+    uint64_t first, last;
+    uint64_t rows = this->get_rows(key, first, last);
+    return rows > 0? true : false;
+  }
   uint64_t fm_index::count(const string &key,
                            map<uint64_t, uint64_t> &dids) const {
     this->search(key, dids);

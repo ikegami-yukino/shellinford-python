@@ -8283,6 +8283,44 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_fm_index_contains(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  shellinford::fm_index *arg1 = (shellinford::fm_index *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:fm_index_contains",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_shellinford__fm_index, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "fm_index_contains" "', argument " "1"" of type '" "shellinford::fm_index const *""'"); 
+  }
+  arg1 = reinterpret_cast< shellinford::fm_index * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(obj1, &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "fm_index_contains" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "fm_index_contains" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = (bool)((shellinford::fm_index const *)arg1)->contains((std::string const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_fm_index_count(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   shellinford::fm_index *arg1 = (shellinford::fm_index *) 0 ;
@@ -9789,6 +9827,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"fm_index_get_substring", _wrap_fm_index_get_substring, METH_VARARGS, NULL},
 	 { (char *)"fm_index_get_document_id", _wrap_fm_index_get_document_id, METH_VARARGS, NULL},
 	 { (char *)"fm_index_search", _wrap_fm_index_search, METH_VARARGS, NULL},
+	 { (char *)"fm_index_contains", _wrap_fm_index_contains, METH_VARARGS, NULL},
 	 { (char *)"fm_index_count", _wrap_fm_index_count, METH_VARARGS, NULL},
 	 { (char *)"fm_index_get_document", _wrap_fm_index_get_document, METH_VARARGS, NULL},
 	 { (char *)"fm_index_write", _wrap_fm_index_write, METH_VARARGS, NULL},
