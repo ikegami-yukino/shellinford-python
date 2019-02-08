@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from nose.tools import assert_equal, assert_true, nottest
+from nose.tools import assert_equal, assert_true, assert_false, nottest
 import shellinford
 from shellinford.shellinford import SEARCH_RESULT
 import tempfile
@@ -126,6 +126,13 @@ class Test_FMIndex(object):
             assert_equal(found_doc[0], expected_result)
         finally:
             os.remove(filename)
+
+    def test_contains(self):
+        fm = shellinford.FMIndex()
+        fm.build(['a', 'b'])
+        assert_true(fm.contains('a'))
+        assert_true(fm.contains('b'))
+        assert_false(fm.contains('c'))
 
     def test__in__(self):
         fm = shellinford.FMIndex()
