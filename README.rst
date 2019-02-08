@@ -1,13 +1,6 @@
 shellinford
 ===========
-
-.. image:: https://badge.fury.io/py/shellinford.png
-    :target: http://badge.fury.io/py/shellinford
-.. image:: https://travis-ci.org/ikegami-yukino/shellinford-python.svg?branch=master
-    :target: https://travis-ci.org/ikegami-yukino/shellinford-python
-.. image:: https://coveralls.io/repos/ikegami-yukino/shellinford-python/badge.png
-    :target: https://coveralls.io/r/ikegami-yukino/shellinford-python
-.. image:: https://img.shields.io/pypi/pyversions/shellinford.svg
+|travis| |coveralls| |pyversion| |version| |license|
 
 Shellinford is an implementation of a Wavelet Matrix/Tree succinct data structure for document retrieval.
 
@@ -148,3 +141,22 @@ License
 =========
 - Wrapper code is licensed under the New BSD License.
 - Bundled `shellinford`_ C++ library (c) 2012 echizen_tm is licensed under the New BSD License.
+
+
+.. |travis| image:: https://travis-ci.org/ikegami-yukino/shellinford-python.svg?branch=master
+    :target: https://travis-ci.org/ikegami-yukino/shellinford-python
+    :alt: travis-ci.org
+
+.. |coveralls| image:: https://coveralls.io/repos/ikegami-yukino/shellinford-python/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/ikegami-yukino/shellinford-python?branch=master
+    :alt: coveralls.io
+
+.. |pyversion| image:: https://img.shields.io/pypi/pyversions/shellinford.svg
+
+.. |version| image:: https://img.shields.io/pypi/v/shellinford.svg
+    :target: http://pypi.python.org/pypi/shellinford/
+    :alt: latest version
+
+.. |license| image:: https://img.shields.io/pypi/l/shellinford.svg
+    :target: http://pypi.python.org/pypi/shellinford/
+    :alt: license
