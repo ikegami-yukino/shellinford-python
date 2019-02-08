@@ -6,7 +6,7 @@ Shellinford is an implementation of a Wavelet Matrix/Tree succinct data structur
 
 It is based on `shellinford`_ C++ library.
 
-.. _shellinford: https://code.google.com/p/shellinford/
+.. _shellinford: https://github.com/echizentm/shellinford
 
 NOTE: This module requires C++11 compiler
 
